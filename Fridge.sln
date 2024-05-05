@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.API", "Fridge\Fridge.API.csproj", "{E993868B-277B-45DB-9F59-E477B34E9F41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4F2B1F3E-5009-48C7-9233-7DD475720DA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{00191D5F-637A-4CF3-9D5F-017A8392AC52}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.Domain", "Fridge.Domain\Fridge.Domain.csproj", "{515B763D-A265-4B5A-BC7D-4CAB265B9CA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.Infrastructure", "Fridge.Infrastructure\Fridge.Infrastructure.csproj", "{3C34286A-252A-44A3-B2CA-3F689D1EBBF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.DAL", "Fridge.DAL\Fridge.DAL.csproj", "{61DEBEF5-E643-43B8-89D4-9437D1F0615D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{636C153C-8543-475C-8C14-E6884628A61D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E993868B-277B-45DB-9F59-E477B34E9F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E993868B-277B-45DB-9F59-E477B34E9F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E993868B-277B-45DB-9F59-E477B34E9F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E993868B-277B-45DB-9F59-E477B34E9F41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{515B763D-A265-4B5A-BC7D-4CAB265B9CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{515B763D-A265-4B5A-BC7D-4CAB265B9CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{515B763D-A265-4B5A-BC7D-4CAB265B9CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{515B763D-A265-4B5A-BC7D-4CAB265B9CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C34286A-252A-44A3-B2CA-3F689D1EBBF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C34286A-252A-44A3-B2CA-3F689D1EBBF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C34286A-252A-44A3-B2CA-3F689D1EBBF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C34286A-252A-44A3-B2CA-3F689D1EBBF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61DEBEF5-E643-43B8-89D4-9437D1F0615D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61DEBEF5-E643-43B8-89D4-9437D1F0615D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61DEBEF5-E643-43B8-89D4-9437D1F0615D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61DEBEF5-E643-43B8-89D4-9437D1F0615D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{636C153C-8543-475C-8C14-E6884628A61D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{636C153C-8543-475C-8C14-E6884628A61D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{636C153C-8543-475C-8C14-E6884628A61D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{636C153C-8543-475C-8C14-E6884628A61D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E993868B-277B-45DB-9F59-E477B34E9F41} = {4F2B1F3E-5009-48C7-9233-7DD475720DA4}
+		{515B763D-A265-4B5A-BC7D-4CAB265B9CA6} = {4F2B1F3E-5009-48C7-9233-7DD475720DA4}
+		{3C34286A-252A-44A3-B2CA-3F689D1EBBF7} = {4F2B1F3E-5009-48C7-9233-7DD475720DA4}
+		{61DEBEF5-E643-43B8-89D4-9437D1F0615D} = {4F2B1F3E-5009-48C7-9233-7DD475720DA4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5796F771-63CD-42E6-804A-D2FBDCDD34EE}
+	EndGlobalSection
+EndGlobal

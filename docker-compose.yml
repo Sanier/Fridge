@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  fridge.api:
+    image: sanier/fridge
+    build:
+      context: .
+      dockerfile: Fridge/Dockerfile
+    ports:
+      - "32733:8080"
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+  postgres:
+    container_name: 'postgres'
+    restart: always
+    ports:
+        - "5432:5432"
+    environment:
+        POSTGRES_DB: "Products"
+        POSTGRES_USER: "admin"
+        POSTGRES_PASSWORD: "password"
+    image: 
+        postgres:15.6-alpine3.19
