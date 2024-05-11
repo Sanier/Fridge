@@ -7,16 +7,17 @@ namespace Fridge.DAL
     public class FridgeDbContext : DbContext
     {
         public DbSet<ProductEntity> Products { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         public FridgeDbContext(DbContextOptions<FridgeDbContext> options) : base(options) 
         {
-            Database.EnsureCreated();
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProductEntity>()
-                .HasKey(e => e.ProductId);
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }

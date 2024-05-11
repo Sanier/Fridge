@@ -16,23 +16,23 @@ namespace Fridge.Infrastructure.Services
             _productRepository = productRepository;
         }
 
-        public async Task<IBaseResponse<IEnumerable<ProductModel>>> ChangeProductsInFridge(ProductModel model)
+        public async Task<IBaseResponse<IEnumerable<ProductModel>>> ChangeProductsInFridge(ProductModel productModel)
         {
             try
             {
-                var list = _productRepository.GetAll()
-                    .FirstOrDefault(l => l.ProductId == model.ProductId);
-
-                list = new ProductEntity()
-                {
-                    ProductId = model.ProductId,
-                    Name = model.Name,
-                    Count = model.Count,
-                    Price = model.Price,
-                };
+                var list = _productRepository.Get()
+                    .FirstOrDefault(l => l.ProductId == productModel.ProductId && l.UserId == productModel.UserId);
 
                 if (list is null)
                     throw new ArgumentNullException();
+
+                list = new ProductEntity()
+                {
+                    ProductId = productModel.ProductId,
+                    Name = productModel.Name,
+                    Count = productModel.Count,
+                    Price = productModel.Price
+                };
 
                 await _productRepository.Update(list);
 
@@ -44,27 +44,25 @@ namespace Fridge.Infrastructure.Services
             }
         }
 
-        public async Task<IBaseResponse<ProductEntity>> Create(ProductModel createProductModel)
+        public async Task<IBaseResponse<ProductEntity>> Create(ProductModel productModel)
         {
             try
             {
-                var list = _productRepository.GetAll()
-                    .FirstOrDefault(l => l.Name == createProductModel.Name);
-
+                var list = _productRepository.Get()
+                    .FirstOrDefault(l => l.Name == productModel.Name);
 
                 list = new ProductEntity()
                 {
-                    ProductId = createProductModel.ProductId,
-                    Name = createProductModel.Name,
-                    Count = createProductModel.Count,
-                    Price = createProductModel.Price,
+                    ProductId = productModel.ProductId,
+                    Name = productModel.Name,
+                    Count = productModel.Count,
+                    Price = productModel.Price,
+                    UserId = productModel.UserId
                 };
 
                 await _productRepository.Create(list);
-
-                //_logger.LogInformation($":");
-
                 await _productRepository.Update(list);
+
                 return OutputProcessing<ProductEntity>("The task has been created", HttpStatusCode.Accepted);
             }
             catch (Exception ex)
@@ -77,7 +75,7 @@ namespace Fridge.Infrastructure.Services
         {
             try
             {
-                var list = _productRepository.GetAll()
+                var list = _productRepository.Get()
                     .FirstOrDefault(l => l.ProductId == id);
 
                 if (list is null)
@@ -98,13 +96,14 @@ namespace Fridge.Infrastructure.Services
         {
             try
             {
-                var list = _productRepository.GetAll()
+                var list = _productRepository.Get()
                     .Select(l => new ProductModel
                     {
                         ProductId = l.ProductId,
                         Name = l.Name,
                         Count = l.Count,
                         Price = l.Price,
+                        UserId = l.UserId,
                     })
                     .ToList();
 
