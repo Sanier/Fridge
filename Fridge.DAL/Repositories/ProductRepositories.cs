@@ -23,7 +23,7 @@ namespace Fridge.DAL.Repositories
             await _fridgeDbContext.SaveChangesAsync();
         }
 
-        public IQueryable<ProductEntity> GetAll()
+        public IQueryable<ProductEntity> Get()
         {
             return _fridgeDbContext.Products;
         }

@@ -6,9 +6,9 @@ namespace Fridge.Infrastructure.Interfaces
 {
     public interface IProductService
     {
-        Task<IBaseResponse<IEnumerable<ProductModel>>> GetProductsInFridge();
-        Task<IBaseResponse<ProductEntity>> Create(ProductModel createFridgeModel);
-        Task<IBaseResponse<IEnumerable<ProductModel>>> DeleteProductsInFridge(long id);
-        Task<IBaseResponse<IEnumerable<ProductModel>>> ChangeProductsInFridge(ProductModel model);
+        Task<IBaseResponse<IEnumerable<ProductModel>>> GetProductsInFridge(long userId);
+        Task<IBaseResponse<ProductEntity>> Create(ProductModel createFridgeModel, long userId);
+        Task<IBaseResponse<IEnumerable<ProductModel>>> DeleteProductsInFridge(string productName, long userId);
+        Task<IBaseResponse<IEnumerable<ProductModel>>> ChangeProductsInFridge(ProductModel model, long userId);
     }
 }

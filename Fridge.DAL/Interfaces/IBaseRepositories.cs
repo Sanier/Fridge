@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fridge.DAL.Interfaces
+﻿namespace Fridge.DAL.Interfaces
 {
     public interface IBaseRepositories<T>
     {
         Task Create(T entity);
-        IQueryable<T> GetAll();
+        IQueryable<T> Get();
         Task Delete(T entity);
         Task<T> Update(T entity);
     }
