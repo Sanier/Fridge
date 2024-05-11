@@ -35,6 +35,7 @@ namespace Fridge.API.Controllers
             return Ok(new { Token = authUser });
         }
 
+        //Нужно повесить лок и роли по типу админа и т.д.
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {

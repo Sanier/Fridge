@@ -4,8 +4,6 @@ namespace Fridge.Domain.Models
 {
     public class ProductModel
     {
-        public long ProductId { get; set; }
-
         [Required]
         public string Name { get; set; }
 
@@ -14,7 +12,5 @@ namespace Fridge.Domain.Models
 
         [Required]
         public double Price { get; set; }
-
-        public long UserId { get; set; }
     }
 }

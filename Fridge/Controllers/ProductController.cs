@@ -17,9 +17,9 @@ namespace Fridge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductModel createProductModel)
+        public async Task<IActionResult> Create(ProductModel createProductModel, long userId)
         {
-            var response = await _productService.Create(createProductModel);
+            var response = await _productService.Create(createProductModel, userId);
 
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
                 return Ok(new { description = response.Description });
@@ -28,17 +28,17 @@ namespace Fridge.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsInFridge()
+        public async Task<IActionResult> GetProductsInFridge(long userId)
         {
-            var response = await _productService.GetProductsInFridge();
+            var response = await _productService.GetProductsInFridge(userId);
 
             return Json(new { data = response.Data });
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteProductsInFridge(long id)
+        public async Task<IActionResult> DeleteProductsInFridge(string productName, long userId)
         {
-            var response = await _productService.DeleteProductsInFridge(id);
+            var response = await _productService.DeleteProductsInFridge(productName, userId);
 
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
                 return Ok(new { description = response.Description });
@@ -47,9 +47,9 @@ namespace Fridge.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> ChangeProductsInFridge(ProductModel model)
+        public async Task<IActionResult> ChangeProductsInFridge(ProductModel model, long userId)
         {
-            var response = await _productService.ChangeProductsInFridge(model);
+            var response = await _productService.ChangeProductsInFridge(model, userId);
 
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
                 return Ok(new { description = response.Description });

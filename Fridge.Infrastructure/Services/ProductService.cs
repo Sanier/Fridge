@@ -4,6 +4,7 @@ using Fridge.Domain.Entities;
 using Fridge.Domain.Models;
 using Fridge.Domain.Response;
 using Fridge.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fridge.Infrastructure.Services
 {
@@ -16,22 +17,22 @@ namespace Fridge.Infrastructure.Services
             _productRepository = productRepository;
         }
 
-        public async Task<IBaseResponse<IEnumerable<ProductModel>>> ChangeProductsInFridge(ProductModel productModel)
+        public async Task<IBaseResponse<IEnumerable<ProductModel>>> ChangeProductsInFridge(ProductModel productModel, long userId)
         {
             try
             {
-                var list = _productRepository.Get()
-                    .FirstOrDefault(l => l.ProductId == productModel.ProductId && l.UserId == productModel.UserId);
+                var list = await _productRepository.Get()
+                    .FirstOrDefaultAsync(l => l.Name == productModel.Name && l.UserId == userId);
 
                 if (list is null)
                     throw new ArgumentNullException();
 
                 list = new ProductEntity()
                 {
-                    ProductId = productModel.ProductId,
                     Name = productModel.Name,
                     Count = productModel.Count,
-                    Price = productModel.Price
+                    Price = productModel.Price,
+                    UserId = userId
                 };
 
                 await _productRepository.Update(list);
@@ -44,24 +45,23 @@ namespace Fridge.Infrastructure.Services
             }
         }
 
-        public async Task<IBaseResponse<ProductEntity>> Create(ProductModel productModel)
+        public async Task<IBaseResponse<ProductEntity>> Create(ProductModel productModel, long userId)
         {
             try
             {
-                var list = _productRepository.Get()
-                    .FirstOrDefault(l => l.Name == productModel.Name);
+                if (await _productRepository.Get().AnyAsync(l => l.Name == productModel.Name && l.UserId == userId))
+                    throw new ArgumentException("Such a product already exists");
 
-                list = new ProductEntity()
+                var product = new ProductEntity()
                 {
-                    ProductId = productModel.ProductId,
                     Name = productModel.Name,
                     Count = productModel.Count,
                     Price = productModel.Price,
-                    UserId = productModel.UserId
+                    UserId = userId
                 };
 
-                await _productRepository.Create(list);
-                await _productRepository.Update(list);
+                await _productRepository.Create(product);
+                await _productRepository.Update(product);
 
                 return OutputProcessing<ProductEntity>("The task has been created", HttpStatusCode.Accepted);
             }
@@ -71,18 +71,17 @@ namespace Fridge.Infrastructure.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<ProductModel>>> DeleteProductsInFridge(long id)
+        public async Task<IBaseResponse<IEnumerable<ProductModel>>> DeleteProductsInFridge(string productName, long userId)
         {
             try
             {
-                var list = _productRepository.Get()
-                    .FirstOrDefault(l => l.ProductId == id);
+                var product = await _productRepository.Get()
+                    .FirstOrDefaultAsync(l => l.Name == productName && l.UserId == userId);
 
-                if (list is null)
+                if (product is null)
                     throw new ArgumentNullException();
 
-                await _productRepository.Delete(list);
-                await _productRepository.Update(list);
+                await _productRepository.Delete(product);
 
                 return OutputProcessing<IEnumerable<ProductModel>>("The task has been deleted", HttpStatusCode.Accepted);
             }
@@ -92,20 +91,19 @@ namespace Fridge.Infrastructure.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<ProductModel>>> GetProductsInFridge()
+        public async Task<IBaseResponse<IEnumerable<ProductModel>>> GetProductsInFridge(long userId)
         {
             try
             {
-                var list = _productRepository.Get()
+                var list = await _productRepository.Get()
+                    .Where(l => l.UserId == userId)
                     .Select(l => new ProductModel
                     {
-                        ProductId = l.ProductId,
                         Name = l.Name,
                         Count = l.Count,
-                        Price = l.Price,
-                        UserId = l.UserId,
+                        Price = l.Price
                     })
-                    .ToList();
+                    .ToListAsync();
 
                 if (list is null)
                     throw new ArgumentNullException();
