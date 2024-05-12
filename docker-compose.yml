@@ -2,6 +2,8 @@ version: '3.9'
 
 services:
   fridge.api:
+    depends_on:
+      - postgres
     image: sanier/fridge
     build:
       context: .
@@ -18,7 +20,7 @@ services:
     ports:
         - "5432:5432"
     environment:
-        POSTGRES_DB: "Products"
+        POSTGRES_DB: "Fridge"
         POSTGRES_USER: "admin"
         POSTGRES_PASSWORD: "password"
     image: 
