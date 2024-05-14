@@ -9,7 +9,8 @@ services:
       context: .
       dockerfile: Fridge/Dockerfile
     ports:
-      - "0:8080"
+      - "9091:8080"
+      - "9092:8081"
     develop:
       watch:
         - action: rebuild
